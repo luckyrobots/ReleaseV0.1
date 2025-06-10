@@ -119,6 +119,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
         .logo {
@@ -139,6 +141,45 @@
 
         .logo:hover .logo-icon {
             transform: scale(1.1);
+        }
+
+        .header-buttons {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .header-btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .github-btn {
+            background: transparent;
+            color: #333;
+            border-color: #d1d3d6;
+        }
+
+        .github-btn:hover {
+            background: #333;
+            color: white;
+            border-color: #333;
+        }
+
+        .download-btn {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .download-btn:hover {
+            background: #5a6fd8;
+            border-color: #5a6fd8;
         }
 
         .sign-in-btn {
@@ -663,9 +704,61 @@
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
         }
 
+        .tutorial-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 1.5rem 0 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .tutorial-action-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid transparent;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tutorial-action-btn.github-btn {
+            background: transparent;
+            color: #333;
+            border-color: #d1d3d6;
+        }
+
+        .tutorial-action-btn.github-btn:hover {
+            background: #333;
+            color: white;
+            border-color: #333;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .tutorial-action-btn.download-btn {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .tutorial-action-btn.download-btn:hover {
+            background: #5a6fd8;
+            border-color: #5a6fd8;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+        }
+
         .tutorial-item h4 {
             color: #333;
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
             font-size: 1.8rem;
             font-weight: 700;
             text-align: center;
@@ -781,12 +874,16 @@
         }
 
         .highlight {
-            color: #0066cc;
-            font-weight: 600;
+            color: #667eea;
+            font-weight: 700;
+            background: rgba(102, 126, 234, 0.1);
+            padding: 0.1rem 0.3rem;
+            border-radius: 4px;
         }
 
         .comment {
-            color: #666;
+            color: #718096;
+            font-style: italic;
         }
 
         footer {
@@ -856,6 +953,30 @@
         }
 
         @media (max-width: 768px) {
+            .header-buttons {
+                flex-direction: column;
+                gap: 0.5rem;
+                align-items: stretch;
+            }
+
+            .header-btn, .sign-in-btn {
+                text-align: center;
+                font-size: 0.85rem;
+                padding: 0.5rem 1rem;
+            }
+
+            .tutorial-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.8rem;
+            }
+
+            .tutorial-action-btn {
+                width: 100%;
+                max-width: 250px;
+                justify-content: center;
+            }
+
             .hero h1 {
                 font-size: 2.5rem;
             }
@@ -907,17 +1028,22 @@
             }
 
             .tutorial-placeholder {
-                height: 280px;
+                height: 320px;
             }
 
             .video-embed-container {
-                height: 280px;
+                height: 320px;
             }
 
             .tutorial-code-block {
-                height: 280px;
+                height: 320px;
                 padding: 1rem;
                 font-size: 0.8rem;
+            }
+
+            .tutorial-content-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
             }
 
             .tutorial-code-block pre {
@@ -931,6 +1057,15 @@
         }
 
         @media (max-width: 1024px) {
+            .header-buttons {
+                gap: 0.8rem;
+            }
+
+            .header-btn, .sign-in-btn {
+                font-size: 0.85rem;
+                padding: 0.5rem 1rem;
+            }
+
             .page-nav {
                 width: 220px;
                 left: 1rem;
@@ -947,16 +1082,21 @@
             }
 
             .tutorial-placeholder {
-                height: 320px;
+                height: 350px;
             }
 
             .video-embed-container {
-                height: 320px;
+                height: 350px;
             }
 
             .tutorial-code-block {
-                height: 320px;
-                padding: 1.2rem;
+                height: 350px;
+                padding: 1.5rem;
+            }
+
+            .tutorial-content-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
             }
 
             .tutorial-code-block pre {
@@ -974,7 +1114,11 @@
             <a href="#" class="logo">
                 <img src="https://github.com/ZoreAnuj/LuckyWorldRelease.github.io/blob/main/assests/431516596-ae6ad53a-741e-4e7a-94cb-5a46a8e81398.png?raw=true" alt="LuckyRobots" class="logo-icon" />
             </a>
-            <a href="https://luckyrobots.com/" class="sign-in-btn">Visit LuckyRobots</a>
+            <div class="header-buttons">
+                <a href="https://github.com/luckyrobots/luckyrobots" class="header-btn github-btn" target="_blank">GitHub</a>
+                <a href="https://drive.google.com/drive/folders/1PzH4YYwZN8B9BNIUOsMDHs-u4Ohv5unf?usp=sharing" class="header-btn download-btn" target="_blank">Download V0.1</a>
+                <a href="https://luckyrobots.com/" class="sign-in-btn">Visit LuckyRobots</a>
+            </div>
         </nav>
     </header>
 
@@ -1078,11 +1222,30 @@
             <div class="tutorial-content">
                 <div class="tutorial-item" id="installation">
                     <h4>Installation & Setting up</h4>
+                    
+                    <div class="tutorial-buttons">
+                        <a href="https://github.com/luckyrobots/luckyrobots" class="tutorial-action-btn github-btn" target="_blank">
+                            GitHub
+                        </a>
+                        <a href="https://github.com/luckyrobots/luckyrobots/releases/tag/v1.0.0" class="tutorial-action-btn github-btn" target="_blank">
+                            GitHub Releases
+                        </a>
+                        <a href="https://drive.google.com/drive/folders/1PzH4YYwZN8B9BNIUOsMDHs-u4Ohv5unf?usp=sharing" class="tutorial-action-btn download-btn" target="_blank">
+                            Download V0.1
+                        </a>
+                    </div>
+                    
                     <div class="tutorial-content-grid">
-                        <div class="tutorial-placeholder">Installation Video</div>
+                        <div class="video-embed-container">
+                            <iframe src="https://www.youtube.com/embed/rdoIYxKmeEk" 
+                                    frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
+                            </iframe>
+                        </div>
                         <div class="tutorial-code-block">
 <pre><code><span class="comment"># Clone the LuckyRobots repository</span>
-git clone <span class="highlight">https://github.com/luckyrobots/luckyrobots</span>
+git clone https://github.com/luckyrobots/luckyrobots
 cd luckyrobots
 
 <span class="comment"># Install dependencies</span>
@@ -1095,9 +1258,6 @@ source luckyworld_env/bin/activate  <span class="comment"># On Windows: luckywor
 <span class="comment"># Install LuckyWorld package</span>
 pip install -e .
 
-<span class="comment"># Download Release V0.1 from:</span>
-<span class="comment"># https://drive.google.com/drive/folders/1PzH4YYwZN8B9BNIUOsMDHs-u4Ohv5unf?usp=sharing</span>
-
 <span class="comment"># Verify installation</span>
 python -c <span class="highlight">"import luckyworld; print('Installation successful!')"</span>
 </code></pre>
@@ -1107,12 +1267,39 @@ python -c <span class="highlight">"import luckyworld; print('Installation succes
                 <div class="tutorial-item" id="recording">
                     <h4>Recording Episodes</h4>
                     <div class="tutorial-content-grid">
-                        <div class="tutorial-placeholder">Recording Demo Video</div>
-                        <div class="tutorial-placeholder">Episode Recording Flow</div>
+                        <div class="video-embed-container">
+                            <iframe src="https://www.youtube.com/embed/rdoIYxKmeEk" 
+                                    frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
+                            </iframe>
+                        </div>
+                        <div class="tutorial-code-block">
+<pre><code><span class="comment"># Start recording episodes for training</span>
+python lerobot/scripts/control_robot.py record \
+    --robot-path <span class="highlight">lerobot.common.robot.manifest</span> \
+    --robot-overrides <span class="highlight">robot_name=so100</span>
+
+<span class="comment"># Configure recording settings</span>
+export <span class="highlight">ROBOT_NAME=so100</span>
+export <span class="highlight">EPISODE_LENGTH=30</span>  <span class="comment"># seconds</span>
+export <span class="highlight">RECORD_FREQUENCY=30</span>  <span class="comment"># Hz</span>
+
+<span class="comment"># Record specific number of episodes</span>
+python lerobot/scripts/control_robot.py record \
+    --robot-overrides <span class="highlight">robot_name=so100</span> \
+    --num-episodes <span class="highlight">10</span>
+
+<span class="comment"># View recorded episodes</span>
+python lerobot/scripts/visualize_dataset.py \
+    --dataset-path <span class="highlight">./data/episodes</span>
+</code></pre>
+                        </div>
                     </div>
                 </div>
                 <div class="tutorial-item" id="upload">
                     <h4>Uploading and Setting HuggingFace Tag</h4>
+                    <div class="tutorial-content-grid">
                     <div class="tutorial-content-grid">
                         <div class="video-embed-container">
                             <iframe src="https://www.youtube.com/embed/rdoIYxKmeEk" 
@@ -1120,6 +1307,7 @@ python -c <span class="highlight">"import luckyworld; print('Installation succes
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                                     allowfullscreen>
                             </iframe>
+                            <div class="video-status">☁️ Upload Guide</div>
                         </div>
                         <div class="tutorial-code-block">
 <pre><code><span class="comment"># Install the Hugging Face CLI</span>
@@ -1140,12 +1328,14 @@ python lerobot\examples\0_setup_dataset_tag.py
                 <div class="tutorial-item" id="training">
                     <h4>Training Your Own Policy</h4>
                     <div class="tutorial-content-grid">
+                    <div class="tutorial-content-grid">
                         <div class="video-embed-container">
                             <iframe src="https://www.youtube.com/embed/bXmPSrVMmeA" 
                                     frameborder="0" 
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                                     allowfullscreen>
                             </iframe>
+                            <div class="video-status">🤖 Training Tutorial</div>
                         </div>
                         <div class="tutorial-code-block">
 <pre><code><span class="comment"># Train your policy with diffusion model</span>
@@ -1170,8 +1360,39 @@ python lerobot/scripts/train.py \
                 <div class="tutorial-item" id="inference">
                     <h4>Inference with Trained Policy</h4>
                     <div class="tutorial-content-grid">
-                        <div class="tutorial-placeholder">Inference Demo Video</div>
-                        <div class="tutorial-placeholder">Deployment & Testing Guide</div>
+                    <div class="tutorial-content-grid">
+                        <div class="video-embed-container">
+                            <iframe src="https://www.youtube.com/embed/bXmPSrVMmeA" 
+                                    frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
+                            </iframe>
+                            <div class="video-status">⚡ Inference Demo</div>
+                        </div>
+                        <div class="tutorial-code-block">
+<pre><code><span class="comment"># Run inference with trained policy</span>
+python lerobot/scripts/control_robot.py record \
+    --robot-path <span class="highlight">lerobot.common.robot.manifest</span> \
+    --robot-overrides <span class="highlight">robot_name=so100</span> \
+    --policy-path <span class="highlight">./outputs/train/diffusion_so100</span>
+
+<span class="comment"># Test specific task</span>
+python lerobot/scripts/eval.py \
+    --policy-path <span class="highlight">./outputs/train/diffusion_so100</span> \
+    --task <span class="highlight">"Locate My Keyboard"</span> \
+    --num-episodes <span class="highlight">5</span>
+
+<span class="comment"># Real-time inference mode</span>
+python lerobot/scripts/control_robot.py infer \
+    --robot-overrides <span class="highlight">robot_name=so100</span> \
+    --policy-overrides <span class="highlight">policy_name=diffusion</span> \
+    --pretrained-policy-path <span class="highlight">./outputs/train/diffusion_so100</span>
+
+<span class="comment"># Monitor performance</span>
+python lerobot/scripts/visualize_performance.py \
+    --log-path <span class="highlight">./outputs/eval</span>
+</code></pre>
+                        </div>
                     </div>
                 </div>
             </div>
