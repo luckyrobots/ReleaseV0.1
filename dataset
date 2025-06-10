@@ -1097,7 +1097,7 @@ pip install -U <span class="highlight">"huggingface_hub[cli]"</span>
 huggingface-cli login
 
 <span class="comment"># Push your dataset files</span>
-huggingface-cli upload zero7101/asdasdasd . --repo-type=dataset
+huggingface-cli upload luckyrobots/so100_Dataset_250_V0.1 . --repo-type=dataset
 
 <span class="comment"># Setting Up Tag</span>
 python lerobot\examples\0_setup_dataset_tag.py
