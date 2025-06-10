@@ -1165,11 +1165,24 @@
 
             .robots-grid {
                 grid-template-columns: 1fr;
+                gap: 1.5rem;
             }
 
             .robot-card-full {
                 max-width: 100%;
                 padding: 1.5rem;
+            }
+
+            .robot-card {
+                padding: 1.5rem;
+            }
+
+            .robot-gif-container {
+                height: 280px;
+            }
+
+            .robot-card-full .robot-gif-container {
+                height: 320px;
             }
 
             .video-embed-container,
@@ -1244,6 +1257,11 @@
 
             .tutorial-code-block pre {
                 font-size: 0.8rem;
+            }
+
+            .robots-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
             }
         }
     </style>
@@ -1353,18 +1371,18 @@
             <div class="tutorial-nav">
                 <h3>Tutorial Overview</h3>
                 <div class="tutorial-steps">
-                    <a href="#installation" class="tutorial-step">Installation & Setup</a>
-                    <a href="#recording" class="tutorial-step">Recording Episodes</a>
-                    <a href="#upload" class="tutorial-step">Upload & HuggingFace</a>
-                    <a href="#training" class="tutorial-step">Training Policy</a>
-                    <a href="#inference" class="tutorial-step">Inference</a>
+                    <a href="#installation" class="tutorial-step">Setup & Install</a>
+                    <a href="#recording" class="tutorial-step">Record Episodes</a>
+                    <a href="#upload" class="tutorial-step">Upload Dataset</a>
+                    <a href="#training" class="tutorial-step">Train Policy</a>
+                    <a href="#inference" class="tutorial-step">Run Inference</a>
                 </div>
             </div>
 
             <div class="tutorial-content">
                 <div class="tutorial-item" id="installation">
                     <div class="completion-indicator">✓</div>
-                    <h4>Installation & Setting up</h4>
+                    <h4>Setup & Installation</h4>
                     
                     <div class="tutorial-buttons">
                         <a href="https://github.com/luckyrobots/luckyrobots" class="tutorial-action-btn github-btn" target="_blank">
@@ -1395,7 +1413,7 @@
                             Step 1 of 5
                         </div>
                         <button class="nav-button next" onclick="goToStep('recording')">
-                            Next: Recording →
+                            Next: Record →
                         </button>
                     </div>
                 </div>
@@ -1414,7 +1432,7 @@
 
                     <div class="tutorial-navigation">
                         <button class="nav-button prev" onclick="goToStep('installation')">
-                            ← Installation
+                            ← Setup
                         </button>
                         <div class="step-indicator">
                             Step 2 of 5
@@ -1455,13 +1473,13 @@ python lerobot\examples\0_setup_dataset_tag.py
 
                     <div class="tutorial-navigation">
                         <button class="nav-button prev" onclick="goToStep('recording')">
-                            ← Recording
+                            ← Record
                         </button>
                         <div class="step-indicator">
                             Step 3 of 5
                         </div>
                         <button class="nav-button next" onclick="goToStep('training')">
-                            Next: Training →
+                            Next: Train →
                         </button>
                     </div>
                 </div>
@@ -1550,7 +1568,7 @@ python lerobot/scripts/visualize_performance.py \
 
                     <div class="tutorial-navigation">
                         <button class="nav-button prev" onclick="goToStep('training')">
-                            ← Training
+                            ← Train
                         </button>
                         <div class="step-indicator">
                             Step 5 of 5
