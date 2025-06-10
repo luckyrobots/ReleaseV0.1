@@ -1,16 +1,4 @@
-.robot-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.8rem;
-            color: #111827;
-            font-weight: 600;
-        }
-
-        .robot-card p {
-            color: #6b7280;
-            line-height: 1.5;
-            font-size: 0.95rem;
-            margin: 0;
-        }<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -388,6 +376,7 @@
             align-items: center;
             justify-content: center;
             border: 2px dashed #d1d3d6;
+            font-size: 0.95rem;
         }
 
         .cta-buttons {
@@ -497,12 +486,51 @@
             max-width: 900px;
             margin-left: auto;
             margin-right: auto;
+            position: relative; /* Added for overlay positioning */
         }
 
         .robot-card-full:hover {
             transform: translateY(-6px);
             box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
             border-color: #333;
+        }
+
+        .robot-card-full .robot-gif-container {
+            width: 800px; /* Increased width */
+            height: 650px; /* Increased height */
+            margin: 0 auto 1.5rem auto; /* Centered and added bottom margin */
+            background: #f8f9fa;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #e9ecef;
+            position: relative; /* For the overlay */
+        }
+
+        .robot-card-full .robot-gif-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 12px;
+            display: block;
+        }
+
+        .robot-content-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(5px);
+            padding: 1rem 1.5rem;
+            border-bottom-left-radius: 16px;
+            border-bottom-right-radius: 16px;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .robot-card-full:hover .robot-content-overlay {
+            opacity: 1;
         }
 
         .robots-grid {
@@ -603,14 +631,28 @@
             border-radius: 12px;
         }
 
-        .robot-card h3, .robot-card-full h3 {
+        .robot-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            color: #111827;
+            font-weight: 600;
+        }
+
+        .robot-card p {
+            color: #6b7280;
+            line-height: 1.5;
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        .robot-card-full h3 {
             font-size: 1.6rem;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem; /* Adjusted for the overlay */
             color: #333;
             font-weight: 700;
         }
 
-        .robot-card p, .robot-card-full p {
+        .robot-card-full p {
             color: #666;
             line-height: 1.6;
             font-size: 0.95rem;
@@ -1210,7 +1252,8 @@
             }
 
             .robot-card-full .robot-gif-container {
-                height: 320px;
+                height: 320px; /* Adjusted for smaller screens */
+                width: 100%; /* Adjusted for smaller screens */
             }
 
             .video-embed-container,
@@ -1293,7 +1336,13 @@
             }
 
             .robot-card-full {
-                margin: 1.5rem 0 2.5rem 0;
+                margin: 1.5rem auto 2.5rem auto; /* Adjusted for centering */
+                max-width: 800px; /* Ensure it fits the new width */
+            }
+
+            .robot-card-full .robot-gif-container {
+                height: 600px; /* Adjusted for tablets */
+                width: 100%; /* Ensure it's responsive */
             }
 
             .tutorial-steps {
@@ -1306,25 +1355,10 @@
                 padding: 1.2rem 0.8rem;
                 font-size: 0.85rem;
             }
-
-            .robot-card-full .robot-gif-container {
-                height: 70vh;
-                width: 100vw;
-            }
-
-            .robot-card-full .robot-content-overlay {
-                padding: 2.5rem 1.5rem 2rem;
-            }
-
-            .robot-card-full h3 {
-                font-size: 2.2rem;
-                font-weight: 800;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- Animated background particles -->
     <div class="particles" id="particles"></div>
 
     <header>
@@ -1341,7 +1375,6 @@
         </nav>
     </header>
 
-    <!-- Page Navigation -->
     <nav class="page-nav">
         <div class="page-nav-header">In this release</div>
         <a href="#hero" class="page-nav-item active">Introducing LuckyWorld</a>
@@ -1381,7 +1414,6 @@
                 <h2>Featured Robot Models in Our Release</h2>
             </div>
             
-            <!-- SO100 - Full Screen -->
             <div class="robot-card-full" id="so100">
                 <div class="robot-gif-container">
                     <img src="https://raw.githubusercontent.com/ZoreAnuj/LuckyWorldRelease.github.io/main/assests/so100_Demo_gif.gif" alt="SO100 Robot" />
@@ -1392,7 +1424,6 @@
                 </div>
             </div>
 
-            <!-- Experimental Robots Grid -->
             <div class="robots-grid" id="experimental">
                 <div class="robot-card">
                     <div class="experimental-badge">Experimental</div>
@@ -1657,7 +1688,7 @@ python lerobot/scripts/visualize_performance.py \
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 LuckyRobots. All rights reserved.</p>
+                <p>© 2025 LuckyRobots. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -1935,26 +1966,29 @@ python lerobot/scripts/visualize_performance.py \
 
         // Enhanced input interaction
         const promptInput = document.querySelector('.prompt-input input');
-        promptInput.addEventListener('focus', function() {
-            this.parentElement.style.transform = 'scale(1.02)';
-            this.style.boxShadow = '0 8px 30px rgba(102, 126, 234, 0.3)';
-        });
+        if (promptInput) { // Check if element exists
+            promptInput.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.02)';
+                this.style.boxShadow = '0 8px 30px rgba(102, 126, 234, 0.3)';
+            });
 
-        promptInput.addEventListener('blur', function() {
-            this.parentElement.style.transform = 'scale(1)';
-            this.style.boxShadow = '';
-        });
+            promptInput.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
+                this.style.boxShadow = '';
+            });
 
-        promptInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                this.style.background = 'linear-gradient(135deg, #f0f2f5, #e9ecef)';
-                this.style.animation = 'bounce 0.6s ease';
-                setTimeout(() => {
-                    this.style.background = 'white';
-                    this.style.animation = '';
-                }, 1000);
-            }
-        });
+            promptInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    this.style.background = 'linear-gradient(135deg, #f0f2f5, #e9ecef)';
+                    this.style.animation = 'bounce 0.6s ease';
+                    setTimeout(() => {
+                        this.style.background = 'white';
+                        this.style.animation = '';
+                    }, 1000);
+                }
+            });
+        }
+
 
         // Robot card interactions
         document.querySelectorAll('.robot-card, .robot-card-full').forEach(card => {
