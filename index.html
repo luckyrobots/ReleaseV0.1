@@ -496,8 +496,8 @@
         }
 
         .robot-card-full .robot-gif-container {
-            width: 800px; /* Increased width */
-            height: 650px; /* Increased height */
+            width: 856px; /* Updated width based on provided dimensions */
+            height: 480px; /* Updated height based on provided dimensions */
             margin: 0 auto 1.5rem auto; /* Centered and added bottom margin */
             background: #f8f9fa;
             border-radius: 12px;
@@ -1252,8 +1252,7 @@
             }
 
             .robot-card-full .robot-gif-container {
-                height: 320px; /* Adjusted for smaller screens */
-                width: 100%; /* Adjusted for smaller screens */
+                height: 320px;
             }
 
             .video-embed-container,
@@ -1336,13 +1335,7 @@
             }
 
             .robot-card-full {
-                margin: 1.5rem auto 2.5rem auto; /* Adjusted for centering */
-                max-width: 800px; /* Ensure it fits the new width */
-            }
-
-            .robot-card-full .robot-gif-container {
-                height: 600px; /* Adjusted for tablets */
-                width: 100%; /* Ensure it's responsive */
+                margin: 1.5rem 0 2.5rem 0;
             }
 
             .tutorial-steps {
@@ -1354,6 +1347,23 @@
                 min-height: 90px;
                 padding: 1.2rem 0.8rem;
                 font-size: 0.85rem;
+            }
+
+            .robot-card-full .robot-gif-container {
+                /* This media query overwrites the specific dimensions. */
+                /* If you want to keep the 856x480 on larger screens, */
+                /* ensure this is adjusted or removed for larger viewports. */
+                height: 70vh; /* Reconsider if you want specific pixel size or responsive height */
+                width: 100vw; /* Reconsider if you want specific pixel size or responsive width */
+            }
+
+            .robot-card-full .robot-content-overlay {
+                padding: 2.5rem 1.5rem 2rem;
+            }
+
+            .robot-card-full h3 {
+                font-size: 2.2rem;
+                font-weight: 800;
             }
         }
     </style>
@@ -1416,7 +1426,7 @@
             
             <div class="robot-card-full" id="so100">
                 <div class="robot-gif-container">
-                    <img src="https://raw.githubusercontent.com/ZoreAnuj/LuckyWorldRelease.github.io/main/assests/so100_Demo_gif.gif" alt="SO100 Robot" />
+                    <img src="https://raw.githubusercontent.com/ZoreAnuj/LuckyWorldRelease.github.io/main/assests/image_9c8bc2.jpg" alt="SO100 Robot" />
                     <div class="robot-content-overlay">
                         <h3>SO100</h3>
                         <p>Open-Source Manipulator</p>
@@ -1489,6 +1499,18 @@
                         </iframe>
                         <div class="video-status">📦 Installation Guide</div>
                     </div>
+
+                    <div class="tutorial-navigation">
+                        <button class="nav-button prev" disabled>
+                            ← Previous
+                        </button>
+                        <div class="step-indicator">
+                            Step 1 of 5
+                        </div>
+                        <button class="nav-button next" onclick="goToStep('recording')">
+                            Next: Record →
+                        </button>
+                    </div>
                 </div>
 
                 <div class="tutorial-item" id="recording">
@@ -1501,6 +1523,18 @@
                                 allowfullscreen>
                         </iframe>
                         <div class="video-status">🎬 Recording Tutorial</div>
+                    </div>
+
+                    <div class="tutorial-navigation">
+                        <button class="nav-button prev" onclick="goToStep('installation')">
+                            ← Setup
+                        </button>
+                        <div class="step-indicator">
+                            Step 2 of 5
+                        </div>
+                        <button class="nav-button next" onclick="goToStep('upload')">
+                            Next: Upload →
+                        </button>
                     </div>
                 </div>
 
@@ -1530,6 +1564,18 @@ huggingface-cli upload luckyrobots/so100_Dataset_250_V0.1 . --repo-type=dataset
 python lerobot\examples\0_setup_dataset_tag.py
 </code></pre>
                         </div>
+                    </div>
+
+                    <div class="tutorial-navigation">
+                        <button class="nav-button prev" onclick="goToStep('recording')">
+                            ← Record
+                        </button>
+                        <div class="step-indicator">
+                            Step 3 of 5
+                        </div>
+                        <button class="nav-button next" onclick="goToStep('training')">
+                            Next: Train →
+                        </button>
                     </div>
                 </div>
 
@@ -1562,6 +1608,18 @@ python lerobot/scripts/train.py \
 <span class="comment"># 2>&1 | tee: Save training logs to training_log.txt</span>
 </code></pre>
                         </div>
+                    </div>
+
+                    <div class="tutorial-navigation">
+                        <button class="nav-button prev" onclick="goToStep('upload')">
+                            ← Upload
+                        </button>
+                        <div class="step-indicator">
+                            Step 4 of 5
+                        </div>
+                        <button class="nav-button next" onclick="goToStep('inference')">
+                            Next: Inference →
+                        </button>
                     </div>
                 </div>
 
@@ -1601,6 +1659,18 @@ python lerobot/scripts/visualize_performance.py \
     --log-path <span class="highlight">./outputs/eval</span>
 </code></pre>
                         </div>
+                    </div>
+
+                    <div class="tutorial-navigation">
+                        <button class="nav-button prev" onclick="goToStep('training')">
+                            ← Train
+                        </button>
+                        <div class="step-indicator">
+                            Step 5 of 5
+                        </div>
+                        <button class="nav-button next completion-btn" onclick="completeTutorial()">
+                            Complete Tutorial ✓
+                        </button>
                     </div>
                 </div>
             </div>
@@ -1906,29 +1976,26 @@ python lerobot/scripts/visualize_performance.py \
 
         // Enhanced input interaction
         const promptInput = document.querySelector('.prompt-input input');
-        if (promptInput) { // Check if element exists
-            promptInput.addEventListener('focus', function() {
-                this.parentElement.style.transform = 'scale(1.02)';
-                this.style.boxShadow = '0 8px 30px rgba(102, 126, 234, 0.3)';
-            });
+        promptInput.addEventListener('focus', function() {
+            this.parentElement.style.transform = 'scale(1.02)';
+            this.style.boxShadow = '0 8px 30px rgba(102, 126, 234, 0.3)';
+        });
 
-            promptInput.addEventListener('blur', function() {
-                this.parentElement.style.transform = 'scale(1)';
-                this.style.boxShadow = '';
-            });
+        promptInput.addEventListener('blur', function() {
+            this.parentElement.style.transform = 'scale(1)';
+            this.style.boxShadow = '';
+        });
 
-            promptInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    this.style.background = 'linear-gradient(135deg, #f0f2f5, #e9ecef)';
-                    this.style.animation = 'bounce 0.6s ease';
-                    setTimeout(() => {
-                        this.style.background = 'white';
-                        this.style.animation = '';
-                    }, 1000);
-                }
-            });
-        }
-
+        promptInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                this.style.background = 'linear-gradient(135deg, #f0f2f5, #e9ecef)';
+                this.style.animation = 'bounce 0.6s ease';
+                setTimeout(() => {
+                    this.style.background = 'white';
+                    this.style.animation = '';
+                }, 1000);
+            }
+        });
 
         // Robot card interactions
         document.querySelectorAll('.robot-card, .robot-card-full').forEach(card => {
