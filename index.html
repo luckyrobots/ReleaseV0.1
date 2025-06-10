@@ -1,6 +1,4 @@
-.tutorial-placeholder {
-                height: 280px;
-            }<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -710,6 +708,7 @@
             justify-content: center;
             margin: 1.5rem 0 2rem 0;
             flex-wrap: wrap;
+            align-items: center;
         }
 
         .tutorial-action-btn {
@@ -771,6 +770,7 @@
             grid-template-columns: 1fr 1fr;
             gap: 2rem;
             margin-top: 1rem;
+            align-items: start;
         }
 
         .tutorial-placeholder {
@@ -829,13 +829,39 @@
             overflow: hidden;
             border: 1px solid #e9ecef;
             height: 350px;
+            position: relative;
         }
 
-        .video-embed-container iframe {
+        .video-embed-container-wide {
+            background: #f8f9fa;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #e9ecef;
+            height: 450px;
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            margin: 2rem auto 0;
+        }
+
+        .video-embed-container iframe,
+        .video-embed-container-wide iframe {
             width: 100%;
             height: 100%;
             border: none;
             border-radius: 12px;
+        }
+
+        .video-status {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 0.3rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
         }
 
         .code-section {
@@ -1027,28 +1053,19 @@
                 padding: 1.5rem;
             }
 
-            .tutorial-placeholder {
-                height: 320px;
-            }
-
-            .video-embed-container {
-                height: 320px;
-            }
-
+            .video-embed-container,
+            .video-embed-container-wide,
             .tutorial-code-block {
-                height: 320px;
-                padding: 1rem;
-                font-size: 0.8rem;
-            }
-
-            .tutorial-content-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
+                height: 300px;
             }
 
             .tutorial-code-block pre {
                 font-size: 0.75rem;
                 line-height: 1.3;
+            }
+
+            .tutorial-code-block {
+                padding: 1rem;
             }
 
             .page-nav {
@@ -1081,22 +1098,14 @@
                 padding: 0 1.2rem 0.8rem 1.2rem;
             }
 
-            .tutorial-placeholder {
-                height: 350px;
-            }
-
-            .video-embed-container {
-                height: 350px;
-            }
-
-            .tutorial-code-block {
-                height: 350px;
-                padding: 1.5rem;
-            }
-
             .tutorial-content-grid {
                 grid-template-columns: 1fr;
                 gap: 2rem;
+            }
+
+            .video-embed-container-wide {
+                height: 400px;
+                margin: 1.5rem auto 0;
             }
 
             .tutorial-code-block pre {
@@ -1127,7 +1136,6 @@
         <div class="page-nav-header">In this release</div>
         <a href="#hero" class="page-nav-item active">Introducing LuckyWorld</a>
         <a href="#robots" class="page-nav-item">Featured robot models</a>
-
         <a href="#tutorial" class="page-nav-item">Tutorial overview</a>
         <a href="#installation" class="page-nav-item">Installation & setup</a>
         <a href="#recording" class="page-nav-item">Recording episodes</a>
@@ -1235,71 +1243,30 @@
                         </a>
                     </div>
                     
-                    <div class="tutorial-content-grid">
-                        <div class="video-embed-container">
-                            <iframe src="https://www.youtube.com/embed/rdoIYxKmeEk" 
-                                    frameborder="0" 
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                    allowfullscreen>
-                            </iframe>
-                        </div>
-                        <div class="tutorial-code-block">
-<pre><code><span class="comment"># Clone the LuckyRobots repository</span>
-git clone https://github.com/luckyrobots/luckyrobots
-cd luckyrobots
-
-<span class="comment"># Install dependencies</span>
-pip install -r requirements.txt
-
-<span class="comment"># Setup virtual environment (recommended)</span>
-python -m venv luckyworld_env
-source luckyworld_env/bin/activate  <span class="comment"># On Windows: luckyworld_env\Scripts\activate</span>
-
-<span class="comment"># Install LuckyWorld package</span>
-pip install -e .
-
-<span class="comment"># Verify installation</span>
-python -c <span class="highlight">"import luckyworld; print('Installation successful!')"</span>
-</code></pre>
-                        </div>
+                    <div class="video-embed-container-wide">
+                        <iframe src="https://www.youtube.com/embed/rdoIYxKmeEk" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                        </iframe>
+                        <div class="video-status">📦 Installation Guide</div>
                     </div>
                 </div>
+
                 <div class="tutorial-item" id="recording">
                     <h4>Recording Episodes</h4>
-                    <div class="tutorial-content-grid">
-                        <div class="video-embed-container">
-                            <iframe src="https://www.youtube.com/embed/rdoIYxKmeEk" 
-                                    frameborder="0" 
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                    allowfullscreen>
-                            </iframe>
-                        </div>
-                        <div class="tutorial-code-block">
-<pre><code><span class="comment"># Start recording episodes for training</span>
-python lerobot/scripts/control_robot.py record \
-    --robot-path <span class="highlight">lerobot.common.robot.manifest</span> \
-    --robot-overrides <span class="highlight">robot_name=so100</span>
-
-<span class="comment"># Configure recording settings</span>
-export <span class="highlight">ROBOT_NAME=so100</span>
-export <span class="highlight">EPISODE_LENGTH=30</span>  <span class="comment"># seconds</span>
-export <span class="highlight">RECORD_FREQUENCY=30</span>  <span class="comment"># Hz</span>
-
-<span class="comment"># Record specific number of episodes</span>
-python lerobot/scripts/control_robot.py record \
-    --robot-overrides <span class="highlight">robot_name=so100</span> \
-    --num-episodes <span class="highlight">10</span>
-
-<span class="comment"># View recorded episodes</span>
-python lerobot/scripts/visualize_dataset.py \
-    --dataset-path <span class="highlight">./data/episodes</span>
-</code></pre>
-                        </div>
+                    <div class="video-embed-container-wide">
+                        <iframe src="https://www.youtube.com/embed/rdoIYxKmeEk" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                        </iframe>
+                        <div class="video-status">🎬 Recording Tutorial</div>
                     </div>
                 </div>
+
                 <div class="tutorial-item" id="upload">
                     <h4>Uploading and Setting HuggingFace Tag</h4>
-                    <div class="tutorial-content-grid">
                     <div class="tutorial-content-grid">
                         <div class="video-embed-container">
                             <iframe src="https://www.youtube.com/embed/rdoIYxKmeEk" 
@@ -1325,9 +1292,9 @@ python lerobot\examples\0_setup_dataset_tag.py
                         </div>
                     </div>
                 </div>
+
                 <div class="tutorial-item" id="training">
                     <h4>Training Your Own Policy</h4>
-                    <div class="tutorial-content-grid">
                     <div class="tutorial-content-grid">
                         <div class="video-embed-container">
                             <iframe src="https://www.youtube.com/embed/bXmPSrVMmeA" 
@@ -1352,14 +1319,13 @@ python lerobot/scripts/train.py \
 <span class="comment"># --policy.type: Policy type (e.g. Diffusion, pi0, ACT)</span>
 <span class="comment"># --dataset.video_backend: Video processing backend</span>
 <span class="comment"># 2>&1 | tee: Save training logs to training_log.txt</span>
-
 </code></pre>
                         </div>
                     </div>
                 </div>
+
                 <div class="tutorial-item" id="inference">
                     <h4>Inference with Trained Policy</h4>
-                    <div class="tutorial-content-grid">
                     <div class="tutorial-content-grid">
                         <div class="video-embed-container">
                             <iframe src="https://www.youtube.com/embed/bXmPSrVMmeA" 
