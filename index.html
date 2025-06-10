@@ -1489,18 +1489,6 @@
                         </iframe>
                         <div class="video-status">📦 Installation Guide</div>
                     </div>
-
-                    <div class="tutorial-navigation">
-                        <button class="nav-button prev" disabled>
-                            ← Previous
-                        </button>
-                        <div class="step-indicator">
-                            Step 1 of 5
-                        </div>
-                        <button class="nav-button next" onclick="goToStep('recording')">
-                            Next: Record →
-                        </button>
-                    </div>
                 </div>
 
                 <div class="tutorial-item" id="recording">
@@ -1513,18 +1501,6 @@
                                 allowfullscreen>
                         </iframe>
                         <div class="video-status">🎬 Recording Tutorial</div>
-                    </div>
-
-                    <div class="tutorial-navigation">
-                        <button class="nav-button prev" onclick="goToStep('installation')">
-                            ← Setup
-                        </button>
-                        <div class="step-indicator">
-                            Step 2 of 5
-                        </div>
-                        <button class="nav-button next" onclick="goToStep('upload')">
-                            Next: Upload →
-                        </button>
                     </div>
                 </div>
 
@@ -1554,18 +1530,6 @@ huggingface-cli upload luckyrobots/so100_Dataset_250_V0.1 . --repo-type=dataset
 python lerobot\examples\0_setup_dataset_tag.py
 </code></pre>
                         </div>
-                    </div>
-
-                    <div class="tutorial-navigation">
-                        <button class="nav-button prev" onclick="goToStep('recording')">
-                            ← Record
-                        </button>
-                        <div class="step-indicator">
-                            Step 3 of 5
-                        </div>
-                        <button class="nav-button next" onclick="goToStep('training')">
-                            Next: Train →
-                        </button>
                     </div>
                 </div>
 
@@ -1598,18 +1562,6 @@ python lerobot/scripts/train.py \
 <span class="comment"># 2>&1 | tee: Save training logs to training_log.txt</span>
 </code></pre>
                         </div>
-                    </div>
-
-                    <div class="tutorial-navigation">
-                        <button class="nav-button prev" onclick="goToStep('upload')">
-                            ← Upload
-                        </button>
-                        <div class="step-indicator">
-                            Step 4 of 5
-                        </div>
-                        <button class="nav-button next" onclick="goToStep('inference')">
-                            Next: Inference →
-                        </button>
                     </div>
                 </div>
 
@@ -1649,18 +1601,6 @@ python lerobot/scripts/visualize_performance.py \
     --log-path <span class="highlight">./outputs/eval</span>
 </code></pre>
                         </div>
-                    </div>
-
-                    <div class="tutorial-navigation">
-                        <button class="nav-button prev" onclick="goToStep('training')">
-                            ← Train
-                        </button>
-                        <div class="step-indicator">
-                            Step 5 of 5
-                        </div>
-                        <button class="nav-button next completion-btn" onclick="completeTutorial()">
-                            Complete Tutorial ✓
-                        </button>
                     </div>
                 </div>
             </div>
