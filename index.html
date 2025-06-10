@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+.tutorial-placeholder {
+                height: 280px;
+            }<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -441,8 +443,10 @@
 
         .robots-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .robot-card {
@@ -499,7 +503,7 @@
 
         .robot-placeholder {
             width: 100%;
-            height: 200px;
+            height: 250px;
             background: #f0f2f5;
             border-radius: 12px;
             margin-bottom: 1.5rem;
@@ -514,11 +518,20 @@
 
         .robot-gif-container {
             width: 100%;
+            height: 250px;
             margin-bottom: 1.5rem;
             background: #f8f9fa;
             border-radius: 12px;
             overflow: hidden;
             border: 1px solid #e9ecef;
+        }
+
+        .robot-gif-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 12px;
+            display: block;
         }
 
         .robot-card h3, .robot-card-full h3 {
@@ -669,7 +682,7 @@
 
         .tutorial-placeholder {
             background: #f0f2f5;
-            height: 250px;
+            height: 350px;
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -689,7 +702,7 @@
             font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
             overflow-x: auto;
             position: relative;
-            height: 250px;
+            height: 350px;
             overflow-y: auto;
         }
 
@@ -722,7 +735,7 @@
             border-radius: 12px;
             overflow: hidden;
             border: 1px solid #e9ecef;
-            height: 250px;
+            height: 350px;
         }
 
         .video-embed-container iframe {
@@ -893,12 +906,16 @@
                 padding: 1.5rem;
             }
 
+            .tutorial-placeholder {
+                height: 280px;
+            }
+
             .video-embed-container {
-                height: 200px;
+                height: 280px;
             }
 
             .tutorial-code-block {
-                height: 200px;
+                height: 280px;
                 padding: 1rem;
                 font-size: 0.8rem;
             }
@@ -929,12 +946,16 @@
                 padding: 0 1.2rem 0.8rem 1.2rem;
             }
 
+            .tutorial-placeholder {
+                height: 320px;
+            }
+
             .video-embed-container {
-                height: 220px;
+                height: 320px;
             }
 
             .tutorial-code-block {
-                height: 220px;
+                height: 320px;
                 padding: 1.2rem;
             }
 
@@ -962,7 +983,7 @@
         <div class="page-nav-header">In this release</div>
         <a href="#hero" class="page-nav-item active">Introducing LuckyWorld</a>
         <a href="#robots" class="page-nav-item">Featured robot models</a>
-        <a href="#experimental" class="page-nav-item">Experimental platforms</a>
+
         <a href="#tutorial" class="page-nav-item">Tutorial overview</a>
         <a href="#installation" class="page-nav-item">Installation & setup</a>
         <a href="#recording" class="page-nav-item">Recording episodes</a>
@@ -1006,7 +1027,7 @@
             <!-- SO100 - Full Width -->
             <div class="robot-card-full" id="so100">
                 <div class="robot-gif-container">
-                    <img src="https://raw.githubusercontent.com/ZoreAnuj/LuckyWorldRelease.github.io/main/assests/so100_Demo_gif.gif" alt="SO100 Robot" style="width: 100%; height: auto; border-radius: 12px; display: block;" />
+                    <img src="https://raw.githubusercontent.com/ZoreAnuj/LuckyWorldRelease.github.io/main/assests/so100_Demo_gif.gif" alt="SO100 Robot" />
                 </div>
                 <h3>SO100</h3>
                 <p>Open-Source Manipulator</p>
@@ -1017,8 +1038,8 @@
                 <div class="robot-card">
                     <div class="experimental-badge">Experimental</div>
                     
-                    <div class="robot-placeholder" style="padding: 0;">
-                        <img src="https://raw.githubusercontent.com/luckyrobots/ReleaseV0.1/main/assets/Stretch_Demo.gif" alt="Stretch Robot" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px;" />
+                    <div class="robot-gif-container">
+                        <img src="https://raw.githubusercontent.com/luckyrobots/ReleaseV0.1/main/assets/Stretch_Demo.gif" alt="Stretch Robot" />
                     </div>
                     <h3>Stretch</h3>
                     <p>Mobile manipulator robot designed for home environments</p>
@@ -1026,8 +1047,8 @@
                 <div class="robot-card">
                     <div class="experimental-badge">Experimental</div>
                     
-                    <div class="robot-placeholder" style="padding: 0;">
-                        <img src="https://raw.githubusercontent.com/ZoreAnuj/LuckyWorldRelease.github.io/main/assests/dji300.gif" alt="DJI Matrice 300 RTK" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px;" />
+                    <div class="robot-gif-container">
+                        <img src="https://raw.githubusercontent.com/ZoreAnuj/LuckyWorldRelease.github.io/main/assests/dji300.gif" alt="DJI Matrice 300 RTK" />
                     </div>
                     <h3>DJI Matrice 300 RTK</h3>
                     <p>Commercial drone platform for precision mapping and industrial applications.</p>
@@ -1059,7 +1080,28 @@
                     <h4>Installation & Setting up</h4>
                     <div class="tutorial-content-grid">
                         <div class="tutorial-placeholder">Installation Video</div>
-                        <div class="tutorial-placeholder">Setup Code Flow/Steps</div>
+                        <div class="tutorial-code-block">
+<pre><code><span class="comment"># Clone the LuckyRobots repository</span>
+git clone <span class="highlight">https://github.com/luckyrobots/luckyrobots</span>
+cd luckyrobots
+
+<span class="comment"># Install dependencies</span>
+pip install -r requirements.txt
+
+<span class="comment"># Setup virtual environment (recommended)</span>
+python -m venv luckyworld_env
+source luckyworld_env/bin/activate  <span class="comment"># On Windows: luckyworld_env\Scripts\activate</span>
+
+<span class="comment"># Install LuckyWorld package</span>
+pip install -e .
+
+<span class="comment"># Download Release V0.1 from:</span>
+<span class="comment"># https://drive.google.com/drive/folders/1PzH4YYwZN8B9BNIUOsMDHs-u4Ohv5unf?usp=sharing</span>
+
+<span class="comment"># Verify installation</span>
+python -c <span class="highlight">"import luckyworld; print('Installation successful!')"</span>
+</code></pre>
+                        </div>
                     </div>
                 </div>
                 <div class="tutorial-item" id="recording">
