@@ -594,55 +594,33 @@
         .tutorial-nav {
             background: white;
             border-radius: 16px;
-            padding: 2.5rem;
+            padding: 3rem;
             margin-bottom: 3rem;
             border: 1px solid #e5e7eb;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-            position: sticky;
-            top: 80px;
-            z-index: 100;
-        }
-
-        .tutorial-nav::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: #f3f4f6;
-        }
-
-        .tutorial-progress {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 2px;
-            background: #3b82f6;
-            transition: width 0.6s ease;
-            width: 20%;
+            position: relative;
         }
 
         .tutorial-nav h3 {
             color: #111827;
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
+            margin-bottom: 2.5rem;
+            font-size: 1.8rem;
             font-weight: 600;
             text-align: center;
         }
 
         .tutorial-steps {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 1rem;
-            max-width: 900px;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1.5rem;
+            max-width: 1000px;
             margin: 0 auto;
         }
 
         .tutorial-step {
             background: #f9fafb;
-            padding: 1rem 0.8rem;
-            border-radius: 8px;
+            padding: 1.5rem 1rem;
+            border-radius: 12px;
             color: #6b7280;
             font-weight: 500;
             transition: all 0.2s ease;
@@ -650,33 +628,41 @@
             font-size: 0.9rem;
             text-align: center;
             position: relative;
-            border: 1px solid transparent;
+            border: 1px solid #e5e7eb;
             text-decoration: none;
-            display: block;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100px;
         }
 
         .tutorial-step:hover {
             color: #374151;
             background: #f3f4f6;
-            transform: translateY(-1px);
+            border-color: #d1d5db;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
 
         .tutorial-step.active {
             background: #3b82f6;
             color: white;
             border-color: #3b82f6;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
         }
 
         .tutorial-step.completed {
             background: #10b981;
             color: white;
             border-color: #10b981;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
         }
 
         .tutorial-step.completed::after {
             content: '✓';
             position: absolute;
-            top: 6px;
+            top: 8px;
             right: 8px;
             font-size: 0.9rem;
             font-weight: 600;
@@ -1263,6 +1249,17 @@
                 grid-template-columns: 1fr;
                 gap: 1.5rem;
             }
+
+            .tutorial-steps {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+
+            .tutorial-step {
+                min-height: 90px;
+                padding: 1.2rem 0.8rem;
+                font-size: 0.85rem;
+            }
         }
     </style>
 </head>
@@ -1307,10 +1304,6 @@
                         <source src="https://raw.githubusercontent.com/ZoreAnuj/LuckyWorldRelease.github.io/main/assests/431520296-0ab2953d-b188-4af7-a225-71decdd2378c.mp4" type="video/mp4">
                         <div class="video-placeholder">Demo Video</div>
                     </video>
-                </div>
-                
-                <div class="prompt-input">
-                    <input type="text" placeholder="Locate My Keyboard" />
                 </div>
             </div>
 
@@ -1776,13 +1769,12 @@ python lerobot/scripts/visualize_performance.py \
             observer.observe(card);
         });
 
-        // Tutorial UX enhancements - minimal and clean
+        // Simple tutorial navigation - no animations or auto-tracking
         let currentStep = 0;
         const tutorialSteps = ['installation', 'recording', 'upload', 'training', 'inference'];
-        const stepProgress = [20, 40, 60, 80, 100];
         let completedSteps = new Set();
 
-        // Enhanced smooth scrolling with offset for sticky nav
+        // Enhanced smooth scrolling with offset
         function smoothScrollToElement(element, offset = 100) {
             const elementPosition = element.offsetTop - offset;
             window.scrollTo({
@@ -1801,11 +1793,6 @@ python lerobot/scripts/visualize_performance.py \
                 const targetElement = document.getElementById(stepId);
                 if (targetElement) {
                     smoothScrollToElement(targetElement);
-                    
-                    // Add subtle focus effect
-                    setTimeout(() => {
-                        targetElement.classList.add('active');
-                    }, 300);
                 }
             }
         }
@@ -1822,19 +1809,6 @@ python lerobot/scripts/visualize_performance.py \
             if (navStep) {
                 navStep.classList.add('completed');
             }
-            
-            updateTutorialProgress();
-        }
-
-        // Update tutorial progress bar
-        function updateTutorialProgress() {
-            const progressBar = document.querySelector('.tutorial-progress');
-            const completedCount = completedSteps.size;
-            const progressPercentage = (completedCount / tutorialSteps.length) * 100;
-            
-            if (progressBar) {
-                progressBar.style.width = `${progressPercentage}%`;
-            }
         }
 
         // Update tutorial navigation state
@@ -1844,14 +1818,6 @@ python lerobot/scripts/visualize_performance.py \
                 step.classList.remove('active');
                 if (index === currentStep) {
                     step.classList.add('active');
-                }
-            });
-
-            // Update page navigation
-            document.querySelectorAll('.page-nav-item').forEach(item => {
-                item.classList.remove('active');
-                if (item.getAttribute('href') === '#' + tutorialSteps[currentStep]) {
-                    item.classList.add('active');
                 }
             });
         }
@@ -1866,46 +1832,10 @@ python lerobot/scripts/visualize_performance.py \
                 completionBtn.innerHTML = '✓ Tutorial Completed';
                 completionBtn.style.background = '#10b981';
                 completionBtn.style.borderColor = '#10b981';
-                
-                // Simple scale animation
-                completionBtn.style.transform = 'scale(1.05)';
-                setTimeout(() => {
-                    completionBtn.style.transform = 'scale(1)';
-                }, 200);
             }
         }
 
-        // Enhanced intersection observer for tutorial steps
-        const tutorialObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const stepId = entry.target.id;
-                    const stepIndex = tutorialSteps.indexOf(stepId);
-                    
-                    if (stepIndex !== -1) {
-                        currentStep = stepIndex;
-                        updateTutorialState();
-                        
-                        // Auto-mark step as viewed after 2 seconds (shorter for cleaner UX)
-                        setTimeout(() => {
-                            if (entry.isIntersecting) {
-                                markStepCompleted(stepId);
-                            }
-                        }, 2000);
-                    }
-                }
-            });
-        }, {
-            threshold: 0.5,
-            rootMargin: '-80px 0px -80px 0px'
-        });
-
-        // Observe tutorial items
-        document.querySelectorAll('.tutorial-item').forEach(item => {
-            tutorialObserver.observe(item);
-        });
-
-        // Minimal tutorial step interaction
+        // Simple tutorial step interaction
         document.querySelectorAll('.tutorial-step').forEach((step, index) => {
             // Add click effect
             step.addEventListener('click', function(e) {
@@ -1915,27 +1845,14 @@ python lerobot/scripts/visualize_performance.py \
                 goToStep(stepId);
             });
 
-            // Subtle hover effect
-            step.addEventListener('mouseenter', function() {
-                if (!this.classList.contains('active')) {
-                    this.style.transform = 'translateY(-1px)';
-                }
-            });
-
-            step.addEventListener('mouseleave', function() {
-                if (!this.classList.contains('active')) {
-                    this.style.transform = 'translateY(0)';
-                }
-            });
-
             // Clean step numbers
             const stepNumber = document.createElement('div');
             stepNumber.style.cssText = `
                 position: absolute;
-                top: -6px;
-                right: -6px;
-                width: 20px;
-                height: 20px;
+                top: -8px;
+                right: -8px;
+                width: 24px;
+                height: 24px;
                 background: #3b82f6;
                 color: white;
                 border-radius: 50%;
@@ -1947,19 +1864,11 @@ python lerobot/scripts/visualize_performance.py \
                 transition: all 0.2s ease;
                 z-index: 10;
                 border: 2px solid white;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             `;
             stepNumber.textContent = index + 1;
             step.style.position = 'relative';
             step.appendChild(stepNumber);
-
-            // Subtle hover animation for step number
-            step.addEventListener('mouseenter', () => {
-                stepNumber.style.transform = 'scale(1.1)';
-            });
-
-            step.addEventListener('mouseleave', () => {
-                stepNumber.style.transform = 'scale(1)';
-            });
         });
 
         // Enhanced input interaction
