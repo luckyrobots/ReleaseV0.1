@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LuckyWorld v0.1 - Democratizing Robotics for Software Engineers</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #e8eaed;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated background particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(102, 126, 234, 0.3);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translateY(-30px) rotate(180deg);
+                opacity: 0.8;
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 60%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            80% { transform: translateY(-5px); }
+        }
+
+        /* Enhanced glow effects */
+        .glow-effect {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glow-effect::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+            opacity: 0;
+        }
+
+        .glow-effect:hover::before {
+            opacity: 1;
+            animation: shine 1.5s ease-in-out;
+        }
+
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            }
+            100% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #333;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            height: 28px;
+            width: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover .logo-icon {
+            transform: scale(1.1);
+        }
+
+        .sign-in-btn {
+            background: #333;
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .sign-in-btn:hover {
+            background: #000;
+        }
+
+        .hero {
+            background: #e8eaed;
+            padding: 8rem 0 4rem;
+            text-align: center;
+        }
+
+        .version-badge {
+            display: inline-block;
+            background: #d1d3d6;
+            color: #666;
+            padding: 0.4rem 1rem;
+            border-radius: 25px;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            color: #333;
+            line-height: 1.1;
+            min-height: 4rem;
+        }
+
+        .typewriter-container {
+            display: inline-block;
+        }
+
+        .typed-text {
+            color: #667eea;
+            position: relative;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1em;
+            background-color: #667eea;
+            margin-left: 2px;
+            animation: blink 1.2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% {
+                opacity: 1;
+            }
+            51%, 100% {
+                opacity: 0;
+            }
+        }
+
+        .page-nav {
+            position: fixed;
+            left: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1001;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            border-radius: 12px;
+            padding: 1.5rem 0 1rem 0;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            width: 260px;
+            transition: all 0.4s ease;
+            display: block;
+            opacity: 1;
+        }
+
+        .page-nav.hidden {
+            opacity: 0;
+            transform: translateY(-50%) translateX(-100%);
+            pointer-events: none;
+        }
+
+        .page-nav:hover {
+            opacity: 1 !important;
+            transform: translateY(-50%) translateX(0) !important;
+            pointer-events: all !important;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .page-nav-header {
+            padding: 0 1.5rem 1rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #333;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            margin-bottom: 0.5rem;
+        }
+
+        .page-nav-item {
+            display: block;
+            padding: 0.7rem 1.5rem;
+            color: #666;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+            line-height: 1.3;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+            position: relative;
+        }
+
+        .page-nav-item:hover {
+            color: #333;
+            background: rgba(102, 126, 234, 0.05);
+            border-left-color: #667eea;
+        }
+
+        .page-nav-item.active {
+            color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+            border-left-color: #667eea;
+            font-weight: 500;
+        }
+
+        .hero .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: #555;
+            font-weight: 500;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.5;
+        }
+
+        .video-section {
+            margin: 3rem 0;
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid #d1d3d6;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            aspect-ratio: 16/9;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-placeholder {
+            color: #666;
+            font-size: 1.1rem;
+            text-align: center;
+            background: #f0f2f5;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed #d1d3d6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2.5rem;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.9rem 1.8rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-size: 0.95rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .cta-button.primary {
+            background: linear-gradient(135deg, #333, #555);
+            color: white;
+            box-shadow: 0 4px 15px rgba(51, 51, 51, 0.3);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            color: #333;
+            border: 2px solid #d1d3d6;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-button.primary:hover {
+            background: linear-gradient(135deg, #000, #333);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        .cta-button.secondary:hover {
+            border-color: #667eea;
+            color: #667eea;
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        .robots-section {
+            background: white;
+            padding: 5rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .robot-card-full {
+            background: white;
+            border: 1px solid #d1d3d6;
+            border-radius: 16px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            margin-bottom: 3rem;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .robot-card-full:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
+            border-color: #333;
+        }
+
+        .robots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        .robot-card {
+            background: white;
+            border: 1px solid #d1d3d6;
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .robot-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .robot-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            border-color: #667eea;
+        }
+
+        .robot-card:hover::after {
+            left: 100%;
+        }
+
+        .robot-card:active {
+            transform: translateY(-8px) scale(1.01);
+        }
+
+        .experimental-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #ff6b6b;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .robot-placeholder {
+            width: 100%;
+            height: 200px;
+            background: #f0f2f5;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-style: italic;
+            border: 2px dashed #d1d3d6;
+            font-size: 0.95rem;
+        }
+
+        .robot-gif-container {
+            width: 100%;
+            margin-bottom: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #e9ecef;
+        }
+
+        .robot-card h3, .robot-card-full h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: #333;
+            font-weight: 700;
+        }
+
+        .robot-card p, .robot-card-full p {
+            color: #666;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .tutorial-section {
+            background: #e8eaed;
+            padding: 5rem 0;
+        }
+
+        .tutorial-nav {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 4rem;
+            border: 1px solid #d1d3d6;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tutorial-nav::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #333, #666, #333);
+        }
+
+        .tutorial-nav h3 {
+            color: #333;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .tutorial-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .tutorial-step {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 1.5rem 1.2rem;
+            border-radius: 12px;
+            color: #555;
+            font-weight: 600;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            font-size: 0.95rem;
+            text-align: center;
+            position: relative;
+            border: 2px solid transparent;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            text-decoration: none;
+            display: block;
+        }
+
+        .tutorial-step::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #333, #555);
+            border-radius: 12px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+
+        .tutorial-step:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            color: #333;
+            border-color: #333;
+        }
+
+        .tutorial-step:hover::before {
+            opacity: 0.05;
+        }
+
+        .tutorial-step.active {
+            background: linear-gradient(135deg, #333, #555);
+            color: white;
+            transform: translateY(-4px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .tutorial-step.active::before {
+            opacity: 0;
+        }
+
+        .tutorial-content {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .tutorial-item {
+            background: white;
+            border-radius: 16px;
+            padding: 3rem;
+            border: 2px solid #d1d3d6;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.08);
+            width: 100%;
+        }
+
+        .tutorial-item:hover {
+            border-color: #333;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .tutorial-item h4 {
+            color: #333;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-align: center;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0f2f5;
+        }
+
+        .tutorial-content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .tutorial-placeholder {
+            background: #f0f2f5;
+            height: 250px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-style: italic;
+            border: 2px dashed #d1d3d6;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .tutorial-code-block {
+            background: #f0f2f5;
+            border: 1px solid #d1d3d6;
+            border-radius: 12px;
+            padding: 1.5rem;
+            font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+            overflow-x: auto;
+            position: relative;
+            height: 250px;
+            overflow-y: auto;
+        }
+
+        .tutorial-code-block::before {
+            content: 'Shell/Python';
+            position: absolute;
+            top: 0.8rem;
+            right: 1rem;
+            background: #333;
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .tutorial-code-block pre {
+            color: #333;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        .tutorial-code-block code {
+            font-family: inherit;
+        }
+
+        .video-embed-container {
+            background: #f8f9fa;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #e9ecef;
+            height: 250px;
+        }
+
+        .video-embed-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 12px;
+        }
+
+        .code-section {
+            background: white;
+            padding: 5rem 0;
+        }
+
+        .code-block {
+            background: #f0f2f5;
+            border: 1px solid #d1d3d6;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-block::before {
+            content: 'Python';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #333;
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .code-block pre {
+            color: #333;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .highlight {
+            color: #0066cc;
+            font-weight: 600;
+        }
+
+        .comment {
+            color: #666;
+        }
+
+        footer {
+            background: #333;
+            color: white;
+            padding: 3rem 0;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            color: white;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #555;
+            padding-top: 2rem;
+            text-align: center;
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+
+        .prompt-input {
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .prompt-input input {
+            width: 100%;
+            max-width: 500px;
+            padding: 0.9rem;
+            border: 2px solid #d1d3d6;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: border-color 0.3s ease;
+            background: white;
+        }
+
+        .prompt-input input:focus {
+            outline: none;
+            border-color: #333;
+        }
+
+        .prompt-input input::placeholder {
+            color: #999;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .tutorial-steps {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .tutorial-content-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .tutorial-item {
+                padding: 2rem;
+            }
+
+            .tutorial-item h4 {
+                font-size: 1.5rem;
+            }
+
+            .tutorial-nav {
+                padding: 2rem;
+                margin-bottom: 3rem;
+            }
+
+            .tutorial-nav h3 {
+                font-size: 1.5rem;
+            }
+
+            .video-section {
+                margin: 2rem 0;
+                padding: 2rem;
+            }
+
+            .robots-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .robot-card-full {
+                max-width: 100%;
+                padding: 1.5rem;
+            }
+
+            .video-embed-container {
+                height: 200px;
+            }
+
+            .tutorial-code-block {
+                height: 200px;
+                padding: 1rem;
+                font-size: 0.8rem;
+            }
+
+            .tutorial-code-block pre {
+                font-size: 0.75rem;
+                line-height: 1.3;
+            }
+
+            .page-nav {
+                display: none;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .page-nav {
+                width: 220px;
+                left: 1rem;
+            }
+            
+            .page-nav-item {
+                font-size: 0.85rem;
+                padding: 0.6rem 1.2rem;
+            }
+            
+            .page-nav-header {
+                font-size: 0.95rem;
+                padding: 0 1.2rem 0.8rem 1.2rem;
+            }
+
+            .video-embed-container {
+                height: 220px;
+            }
+
+            .tutorial-code-block {
+                height: 220px;
+                padding: 1.2rem;
+            }
+
+            .tutorial-code-block pre {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated background particles -->
+    <div class="particles" id="particles"></div>
+
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">
+                <img src="https://github.com/ZoreAnuj/LuckyWorldRelease.github.io/blob/main/assests/431516596-ae6ad53a-741e-4e7a-94cb-5a46a8e81398.png?raw=true" alt="LuckyRobots" class="logo-icon" />
+            </a>
+            <a href="https://luckyrobots.com/" class="sign-in-btn">Visit LuckyRobots</a>
+        </nav>
+    </header>
+
+    <!-- Page Navigation -->
+    <nav class="page-nav">
+        <div class="page-nav-header">In this release</div>
+        <a href="#hero" class="page-nav-item active">Introducing LuckyWorld</a>
+        <a href="#robots" class="page-nav-item">Featured robot models</a>
+        <a href="#so100" class="page-nav-item">SO100 robotic arm</a>
+        <a href="#experimental" class="page-nav-item">Experimental platforms</a>
+        <a href="#tutorial" class="page-nav-item">Tutorial overview</a>
+        <a href="#intro" class="page-nav-item">Introduction</a>
+        <a href="#installation" class="page-nav-item">Installation & setup</a>
+        <a href="#recording" class="page-nav-item">Recording episodes</a>
+        <a href="#upload" class="page-nav-item">Upload & HuggingFace</a>
+        <a href="#training" class="page-nav-item">Training policy</a>
+        <a href="#inference" class="page-nav-item">Inference</a>
+    </nav>
+
+    <section class="hero" id="hero">
+        <div class="container">
+            <div class="version-badge">Release v0.1</div>
+            <h1>Introducing <span class="typewriter-container"><span class="typed-text" id="typed-text"></span><span class="cursor" id="cursor"></span></span></h1>
+
+            <div class="video-section">
+                <div class="video-container">
+                    <video controls poster="" preload="metadata">
+                        <source src="https://raw.githubusercontent.com/ZoreAnuj/LuckyWorldRelease.github.io/main/assests/431520296-0ab2953d-b188-4af7-a225-71decdd2378c.mp4" type="video/mp4">
+                        <div class="video-placeholder">Demo Video</div>
+                    </video>
+                </div>
+                
+                <div class="prompt-input">
+                    <input type="text" placeholder="Locate My Keyboard" />
+                </div>
+            </div>
+
+            <div class="cta-buttons">
+                <a href="#tutorial" class="cta-button primary">Start Training Now</a>
+                <a href="https://luckyrobots.com/" class="cta-button secondary">Join LuckyHub</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="robots" class="robots-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Featured Robot Models in Our Release</h2>
+                <p>Today, developers and enterprises are using our platform to build and explore robotic models capable of understanding natural language and performing practical tasks.</p>
+            </div>
+            
+            <!-- SO100 - Full Width -->
+            <div class="robot-card-full" id="so100">
+                <div class="robot-gif-container">
+                    <img src="https://raw.githubusercontent.com/ZoreAnuj/LuckyWorldRelease.github.io/main/assests/so100_Demo_gif.gif" alt="SO100 Robot" style="width: 100%; height: auto; border-radius: 12px; display: block;" />
+                </div>
+                <h3>Stretch</h3>
+                <p>Mobile manipulator with mobility and manipulation capabilities for service robotics.</p>
+            </div>
+
+            <!-- Experimental Robots Grid -->
+            <div class="robots-grid" id="experimental">
+                <div class="robot-card">
+                    <div class="experimental-badge">Experimental</div>
+                    
+                    <div class="robot-placeholder" style="padding: 0;">
+                        <img src="https://raw.githubusercontent.com/ZoreAnuj/LuckyWorldRelease.github.io/main/assests/dji300.gif" alt="Stretch Robot" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px;" />
+                    </div>
+                    <h3>Stretch</h3>
+                    <p>Mobile manipulator robot designed for home environments. Features 6-DOF arm, mobile base, and advanced perception capabilities for indoor navigation and manipulation tasks.</p>
+                </div>
+                <div class="robot-card">
+                    <div class="experimental-badge">Experimental</div>
+                    
+                    <div class="robot-placeholder" style="padding: 0;">
+                        <img src="https://raw.githubusercontent.com/ZoreAnuj/LuckyWorldRelease.github.io/main/assests/dji300.gif" alt="DJI Matrice 300 RTK" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px;" />
+                    </div>
+                    <h3>DJI Matrice 300 RTK</h3>
+                    <p>Professional commercial drone platform with 55-minute flight time, 15km transmission range, and dual RTK antennas for precision mapping and industrial applications.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tutorial" class="tutorial-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Ready to get started?</h2>
+                <p>Part of the reason we began this journey is that everything we tried was either proprietary hardware, limited to Linux, difficult to install, or impossible to use.</p>
+            </div>
+
+            <div class="tutorial-nav">
+                <h3>Tutorial Overview</h3>
+                <div class="tutorial-steps">
+                    <a href="#intro" class="tutorial-step">Intro</a>
+                    <a href="#installation" class="tutorial-step">Installation & Setup</a>
+                    <a href="#recording" class="tutorial-step">Recording Episodes</a>
+                    <a href="#upload" class="tutorial-step">Upload & HuggingFace</a>
+                    <a href="#training" class="tutorial-step">Training Policy</a>
+                    <a href="#inference" class="tutorial-step">Inference</a>
+                </div>
+            </div>
+
+            <div class="tutorial-content">
+                <div class="tutorial-item" id="intro">
+                    <h4>Introduction to LuckyWorld</h4>
+                    <div class="tutorial-content-grid">
+                        <div class="tutorial-placeholder">Welcome Video</div>
+                        <div class="tutorial-placeholder">Platform Overview & Architecture</div>
+                    </div>
+                </div>
+                <div class="tutorial-item" id="installation">
+                    <h4>Installation & Setting up</h4>
+                    <div class="tutorial-content-grid">
+                        <div class="tutorial-placeholder">Installation Video</div>
+                        <div class="tutorial-placeholder">Setup Code Flow/Steps</div>
+                    </div>
+                </div>
+                <div class="tutorial-item" id="recording">
+                    <h4>Recording Episodes</h4>
+                    <div class="tutorial-content-grid">
+                        <div class="tutorial-placeholder">Recording Demo Video</div>
+                        <div class="tutorial-placeholder">Episode Recording Flow</div>
+                    </div>
+                </div>
+                <div class="tutorial-item" id="upload">
+                    <h4>Uploading and Setting HuggingFace Tag</h4>
+                    <div class="tutorial-content-grid">
+                        <div class="video-embed-container">
+                            <iframe src="https://www.youtube.com/embed/rdoIYxKmeEk" 
+                                    frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
+                            </iframe>
+                        </div>
+                        <div class="tutorial-code-block">
+<pre><code><span class="comment"># Install the Hugging Face CLI</span>
+pip install -U <span class="highlight">"huggingface_hub[cli]"</span>
+
+<span class="comment"># Login with your Hugging Face credentials</span>
+huggingface-cli login
+
+<span class="comment"># Push your dataset files</span>
+huggingface-cli upload zero7101/asdasdasd . --repo-type=dataset
+
+<span class="comment"># Setting Up Tag</span>
+python lerobot\examples\0_setup_dataset_tag.py
+</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="tutorial-item" id="training">
+                    <h4>Training Your Own Policy</h4>
+                    <div class="tutorial-content-grid">
+                        <div class="video-embed-container">
+                            <iframe src="https://www.youtube.com/embed/bXmPSrVMmeA" 
+                                    frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
+                            </iframe>
+                        </div>
+                        <div class="tutorial-code-block">
+<pre><code><span class="comment"># Train your policy with diffusion model</span>
+<span class="comment"># This command will start training using the SO100 dataset</span>
+
+python lerobot/scripts/train.py \
+    --dataset.repo_id=<span class="highlight">luckyrobots/so100_Dataset_250_V0.1</span> \
+    --policy.type=<span class="highlight">diffusion</span> \
+    --dataset.video_backend=<span class="highlight">torchcodec</span> \
+    <span class="highlight">2>&1</span> | tee training_log.txt
+
+<span class="comment"># Parameters explained:</span>
+<span class="comment"># --dataset.repo_id: HuggingFace dataset repository</span>
+<span class="comment"># --policy.type: Policy type (e.g. Diffusion, pi0, ACT)</span>
+<span class="comment"># --dataset.video_backend: Video processing backend</span>
+<span class="comment"># 2>&1 | tee: Save training logs to training_log.txt</span>
+
+</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="tutorial-item" id="inference">
+                    <h4>Inference with Trained Policy</h4>
+                    <div class="tutorial-content-grid">
+                        <div class="tutorial-placeholder">Inference Demo Video</div>
+                        <div class="tutorial-placeholder">Deployment & Testing Guide</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Platform</h4>
+                    <a href="https://luckyrobots.com/">LuckyRobots</a>
+                    <a href="https://huggingface.co/luckyrobots">HuggingFace Models</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <a href="#tutorial">Tutorials</a>
+                    <a href="#robots">Robot Models</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Community</h4>
+                    <a href="https://github.com/ZoreAnuj/LuckyWorldRelease.github.io">GitHub</a>
+                    <a href="https://luckyrobots.com/">Documentation</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 LuckyRobots. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Particle system for dynamic background
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Initialize particles
+        createParticles();
+
+        // Modern typewriter effect for LuckyWorld only
+        const textToType = "LuckyWorld";
+        const typedTextElement = document.getElementById('typed-text');
+        const cursorElement = document.getElementById('cursor');
+        let charIndex = 0;
+
+        function typeCharacter() {
+            if (charIndex < textToType.length) {
+                typedTextElement.textContent += textToType.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeCharacter, 120);
+            } else {
+                setTimeout(() => {
+                    cursorElement.style.display = 'none';
+                }, 2000);
+            }
+        }
+
+        window.addEventListener('load', () => {
+            setTimeout(typeCharacter, 800);
+        });
+
+        // Auto-hide sidebar functionality
+        const pageNav = document.querySelector('.page-nav');
+        let hideTimeout;
+        let isScrolling = false;
+
+        function showSidebar() {
+            pageNav.classList.remove('hidden');
+        }
+
+        function hideSidebar() {
+            pageNav.classList.add('hidden');
+        }
+
+        function resetHideTimer() {
+            clearTimeout(hideTimeout);
+            showSidebar();
+            
+            hideTimeout = setTimeout(() => {
+                if (!pageNav.matches(':hover')) {
+                    hideSidebar();
+                }
+            }, 2000);
+        }
+
+        // Show sidebar on scroll and reset timer
+        window.addEventListener('scroll', () => {
+            isScrolling = true;
+            resetHideTimer();
+            
+            clearTimeout(isScrolling);
+            isScrolling = setTimeout(() => {
+                isScrolling = false;
+            }, 100);
+        });
+
+        // Show sidebar on mouse movement near left edge
+        window.addEventListener('mousemove', (e) => {
+            if (e.clientX < 50) {
+                resetHideTimer();
+            }
+        });
+
+        // Keep sidebar visible on hover
+        pageNav.addEventListener('mouseenter', () => {
+            clearTimeout(hideTimeout);
+            showSidebar();
+        });
+
+        pageNav.addEventListener('mouseleave', () => {
+            resetHideTimer();
+        });
+
+        // Initial hide timer
+        resetHideTimer();
+
+        // Page navigation functionality
+        const navItems = document.querySelectorAll('.page-nav-item');
+        const sections = document.querySelectorAll('section[id], div[id]');
+
+        // Update active navigation item based on scroll position
+        function updateActiveNav() {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.offsetHeight;
+                if (window.pageYOffset >= sectionTop && window.pageYOffset < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href') === '#' + current) {
+                    item.classList.add('active');
+                }
+            });
+        }
+
+        // Enhanced smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    // Add visual feedback for click
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Listen for scroll events to update navigation
+        window.addEventListener('scroll', updateActiveNav);
+
+        // Enhanced Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0) scale(1)';
+                        entry.target.classList.add('glow-effect');
+                    }, index * 100); // Staggered animation
+                }
+            });
+        }, observerOptions);
+
+        // Initially hide elements and observe them
+        document.querySelectorAll('.robot-card, .robot-card-full, .tutorial-item').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px) scale(0.95)';
+            card.style.transition = 'opacity 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            observer.observe(card);
+        });
+
+        // Enhanced tutorial step interaction
+        document.querySelectorAll('.tutorial-step').forEach((step, index) => {
+            // Add click effect
+            step.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all steps
+                document.querySelectorAll('.tutorial-step').forEach(s => s.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Add click animation
+                this.style.transform = 'translateY(-8px) scale(1.05)';
+                setTimeout(() => {
+                    this.style.transform = 'translateY(-4px)';
+                }, 200);
+
+                // Scroll to target section
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    setTimeout(() => {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }, 300);
+                }
+            });
+
+            // Add hover pulse effect
+            step.addEventListener('mouseenter', function() {
+                this.style.animation = 'pulse 0.6s ease-in-out';
+            });
+
+            step.addEventListener('mouseleave', function() {
+                this.style.animation = '';
+            });
+
+            // Add step numbers with enhanced styling
+            const stepNumber = document.createElement('div');
+            stepNumber.style.cssText = `
+                position: absolute;
+                top: -8px;
+                right: -8px;
+                width: 28px;
+                height: 28px;
+                background: linear-gradient(45deg, #667eea, #764ba2);
+                color: white;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.75rem;
+                font-weight: 700;
+                box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+                transition: all 0.3s ease;
+            `;
+            stepNumber.textContent = index + 1;
+            step.style.position = 'relative';
+            step.appendChild(stepNumber);
+
+            // Animate step number on hover
+            step.addEventListener('mouseenter', () => {
+                stepNumber.style.transform = 'scale(1.2) rotate(360deg)';
+                stepNumber.style.boxShadow = '0 6px 20px rgba(102, 126, 234, 0.6)';
+            });
+
+            step.addEventListener('mouseleave', () => {
+                stepNumber.style.transform = 'scale(1) rotate(0deg)';
+                stepNumber.style.boxShadow = '0 4px 15px rgba(102, 126, 234, 0.4)';
+            });
+        });
+
+        // Enhanced input interaction
+        const promptInput = document.querySelector('.prompt-input input');
+        promptInput.addEventListener('focus', function() {
+            this.parentElement.style.transform = 'scale(1.02)';
+            this.style.boxShadow = '0 8px 30px rgba(102, 126, 234, 0.3)';
+        });
+
+        promptInput.addEventListener('blur', function() {
+            this.parentElement.style.transform = 'scale(1)';
+            this.style.boxShadow = '';
+        });
+
+        promptInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                this.style.background = 'linear-gradient(135deg, #f0f2f5, #e9ecef)';
+                this.style.animation = 'bounce 0.6s ease';
+                setTimeout(() => {
+                    this.style.background = 'white';
+                    this.style.animation = '';
+                }, 1000);
+            }
+        });
+
+        // Robot card interactions
+        document.querySelectorAll('.robot-card, .robot-card-full').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.animation = 'pulse 0.8s ease-in-out';
+            });
+
+            card.addEventListener('mouseleave', function() {
+                this.style.animation = '';
+            });
+
+            card.addEventListener('click', function() {
+                this.style.animation = 'bounce 0.6s ease';
+                setTimeout(() => {
+                    this.style.animation = '';
+                }, 600);
+            });
+        });
+
+        // Enhanced loading animation for page elements
+        window.addEventListener('load', () => {
+            document.querySelectorAll('.cta-button').forEach((button, index) => {
+                setTimeout(() => {
+                    button.style.opacity = '1';
+                    button.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+        });
+
+        // Initially hide CTA buttons for loading animation
+        document.querySelectorAll('.cta-button').forEach(button => {
+            button.style.opacity = '0';
+            button.style.transform = 'translateY(20px)';
+            button.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+        });
+    </script>
+</body>
+</html>
