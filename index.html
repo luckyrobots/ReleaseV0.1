@@ -4,6 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LuckyWorld v0.1 - Democratizing Robotics for Software Engineers</title>
+    
+    <!-- Wistia Player Scripts -->
+    <script src="https://fast.wistia.com/player.js" async></script>
+    <script src="https://fast.wistia.com/embed/7u3xq30g9u.js" async type="module"></script>
+    <script src="https://fast.wistia.com/embed/22ld6mgdj6.js" async type="module"></script>
+    <script src="https://fast.wistia.com/embed/ahcudmvcsm.js" async type="module"></script>
+    <script src="https://fast.wistia.com/embed/5buxoepkyw.js" async type="module"></script>
+    
+    <!-- Wistia Player Styles -->
+    <style>
+        wistia-player[media-id='7u3xq30g9u']:not(:defined) { 
+            background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/7u3xq30g9u/swatch'); 
+            display: block; 
+            filter: blur(5px); 
+            padding-top:56.25%; 
+        }
+        wistia-player[media-id='22ld6mgdj6']:not(:defined) { 
+            background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/22ld6mgdj6/swatch'); 
+            display: block; 
+            filter: blur(5px); 
+            padding-top:56.25%; 
+        }
+        wistia-player[media-id='ahcudmvcsm']:not(:defined) { 
+            background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/ahcudmvcsm/swatch'); 
+            display: block; 
+            filter: blur(5px); 
+            padding-top:56.25%; 
+        }
+        wistia-player[media-id='5buxoepkyw']:not(:defined) { 
+            background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/5buxoepkyw/swatch'); 
+            display: block; 
+            filter: blur(5px); 
+            padding-top:56.25%; 
+        }
+    </style>
+    
     <style>
         * {
             margin: 0;
@@ -486,7 +522,7 @@
             max-width: 900px;
             margin-left: auto;
             margin-right: auto;
-            position: relative; /* Added for overlay positioning */
+            position: relative;
         }
 
         .robot-card-full:hover {
@@ -496,14 +532,14 @@
         }
 
         .robot-card-full .robot-gif-container {
-            width: 856px; /* Updated width based on provided dimensions */
-            height: 480px; /* Updated height based on provided dimensions */
-            margin: 0 auto 1.5rem auto; /* Centered and added bottom margin */
+            width: 856px;
+            height: 480px;
+            margin: 0 auto 1.5rem auto;
             background: #f8f9fa;
             border-radius: 12px;
             overflow: hidden;
             border: 1px solid #e9ecef;
-            position: relative; /* For the overlay */
+            position: relative;
         }
 
         .robot-card-full .robot-gif-container img {
@@ -647,7 +683,7 @@
 
         .robot-card-full h3 {
             font-size: 1.6rem;
-            margin-bottom: 0.5rem; /* Adjusted for the overlay */
+            margin-bottom: 0.5rem;
             color: #333;
             font-weight: 700;
         }
@@ -1019,11 +1055,10 @@
             margin: 2rem auto 0;
         }
 
-        .video-embed-container iframe,
-        .video-embed-container-wide iframe {
+        .video-embed-container wistia-player,
+        .video-embed-container-wide wistia-player {
             width: 100%;
             height: 100%;
-            border: none;
             border-radius: 12px;
         }
 
@@ -1037,6 +1072,7 @@
             border-radius: 6px;
             font-size: 0.8rem;
             font-weight: 600;
+            z-index: 10;
         }
 
         .code-section {
@@ -1350,11 +1386,8 @@
             }
 
             .robot-card-full .robot-gif-container {
-                /* This media query overwrites the specific dimensions. */
-                /* If you want to keep the 856x480 on larger screens, */
-                /* ensure this is adjusted or removed for larger viewports. */
-                height: 70vh; /* Reconsider if you want specific pixel size or responsive height */
-                width: 100vw; /* Reconsider if you want specific pixel size or responsive width */
+                height: 70vh;
+                width: 100vw;
             }
 
             .robot-card-full .robot-content-overlay {
@@ -1492,11 +1525,7 @@
                     </div>
                     
                     <div class="video-embed-container-wide">
-                        <iframe src="https://www.youtube.com/embed/rdoIYxKmeEk" 
-                                frameborder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                allowfullscreen>
-                        </iframe>
+                        <wistia-player media-id="7u3xq30g9u" aspect="1.7777777777777777"></wistia-player>
                         <div class="video-status">📦 Installation Guide</div>
                     </div>
 
@@ -1517,11 +1546,7 @@
                     <div class="completion-indicator">✓</div>
                     <h4>Recording Episodes</h4>
                     <div class="video-embed-container-wide">
-                        <iframe src="https://www.youtube.com/embed/rdoIYxKmeEk" 
-                                frameborder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                allowfullscreen>
-                        </iframe>
+                        <wistia-player media-id="22ld6mgdj6" aspect="1.7777777777777777"></wistia-player>
                         <div class="video-status">🎬 Recording Tutorial</div>
                     </div>
 
@@ -1543,11 +1568,7 @@
                     <h4>Uploading and Setting HuggingFace Tag</h4>
                     <div class="tutorial-content-grid">
                         <div class="video-embed-container">
-                            <iframe src="https://www.youtube.com/embed/rdoIYxKmeEk" 
-                                    frameborder="0" 
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                    allowfullscreen>
-                            </iframe>
+                            <wistia-player media-id="ahcudmvcsm" aspect="1.7777777777777777"></wistia-player>
                             <div class="video-status">☁️ Upload Guide</div>
                         </div>
                         <div class="tutorial-code-block">
@@ -1584,11 +1605,7 @@ python lerobot\examples\0_setup_dataset_tag.py
                     <h4>Training Your Own Policy</h4>
                     <div class="tutorial-content-grid">
                         <div class="video-embed-container">
-                            <iframe src="https://www.youtube.com/embed/bXmPSrVMmeA" 
-                                    frameborder="0" 
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                    allowfullscreen>
-                            </iframe>
+                            <wistia-player media-id="5buxoepkyw" aspect="1.7777777777777777"></wistia-player>
                             <div class="video-status">🤖 Training Tutorial</div>
                         </div>
                         <div class="tutorial-code-block">
@@ -1628,11 +1645,7 @@ python lerobot/scripts/train.py \
                     <h4>Inference with Trained Policy</h4>
                     <div class="tutorial-content-grid">
                         <div class="video-embed-container">
-                            <iframe src="https://www.youtube.com/embed/bXmPSrVMmeA" 
-                                    frameborder="0" 
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                    allowfullscreen>
-                            </iframe>
+                            <wistia-player media-id="5buxoepkyw" aspect="1.7777777777777777"></wistia-player>
                             <div class="video-status">⚡ Inference Demo</div>
                         </div>
                         <div class="tutorial-code-block">
@@ -1976,26 +1989,28 @@ python lerobot/scripts/visualize_performance.py \
 
         // Enhanced input interaction
         const promptInput = document.querySelector('.prompt-input input');
-        promptInput.addEventListener('focus', function() {
-            this.parentElement.style.transform = 'scale(1.02)';
-            this.style.boxShadow = '0 8px 30px rgba(102, 126, 234, 0.3)';
-        });
+        if (promptInput) {
+            promptInput.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.02)';
+                this.style.boxShadow = '0 8px 30px rgba(102, 126, 234, 0.3)';
+            });
 
-        promptInput.addEventListener('blur', function() {
-            this.parentElement.style.transform = 'scale(1)';
-            this.style.boxShadow = '';
-        });
+            promptInput.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
+                this.style.boxShadow = '';
+            });
 
-        promptInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                this.style.background = 'linear-gradient(135deg, #f0f2f5, #e9ecef)';
-                this.style.animation = 'bounce 0.6s ease';
-                setTimeout(() => {
-                    this.style.background = 'white';
-                    this.style.animation = '';
-                }, 1000);
-            }
-        });
+            promptInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    this.style.background = 'linear-gradient(135deg, #f0f2f5, #e9ecef)';
+                    this.style.animation = 'bounce 0.6s ease';
+                    setTimeout(() => {
+                        this.style.background = 'white';
+                        this.style.animation = '';
+                    }, 1000);
+                }
+            });
+        }
 
         // Robot card interactions
         document.querySelectorAll('.robot-card, .robot-card-full').forEach(card => {
