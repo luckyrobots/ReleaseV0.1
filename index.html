@@ -794,20 +794,7 @@
             overflow: hidden;
         }
 
-        .tutorial-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-            transition: left 0.6s ease;
-        }
 
-        .tutorial-item.active::before {
-            left: 0;
-        }
 
         .tutorial-item:hover {
             border-color: #667eea;
@@ -820,68 +807,7 @@
             box-shadow: 0 15px 50px rgba(102, 126, 234, 0.2);
         }
 
-        .tutorial-navigation {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid #e9ecef;
-        }
 
-        .nav-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.8rem 1.5rem;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 2px solid transparent;
-            cursor: pointer;
-            background: transparent;
-        }
-
-        .nav-button.prev {
-            color: #666;
-            border-color: #d1d3d6;
-        }
-
-        .nav-button.prev:hover {
-            color: #333;
-            border-color: #333;
-            background: rgba(0, 0, 0, 0.05);
-            transform: translateX(-2px);
-        }
-
-        .nav-button.next {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border-color: #667eea;
-        }
-
-        .nav-button.next:hover {
-            background: linear-gradient(135deg, #5a6fd8, #6b46c1);
-            transform: translateX(2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
-        }
-
-        .nav-button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none !important;
-        }
-
-        .step-indicator {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: #666;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
 
         .completion-indicator {
             position: absolute;
@@ -1189,17 +1115,7 @@
             color: #999;
         }
 
-        .nav-button.completion-btn {
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: white;
-            border-color: #10b981;
-        }
 
-        .nav-button.completion-btn:hover {
-            background: linear-gradient(135deg, #059669, #047857);
-            transform: translateX(2px) scale(1.05);
-            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
-        }
 
         @media (max-width: 768px) {
             .header-buttons {
@@ -1306,20 +1222,7 @@
                 padding: 1rem;
             }
 
-            .tutorial-navigation {
-                flex-direction: column;
-                gap: 1rem;
-                text-align: center;
-            }
 
-            .nav-button {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .step-indicator {
-                order: -1;
-            }
 
             .page-nav {
                 display: none;
@@ -1528,18 +1431,6 @@
                         <wistia-player media-id="7u3xq30g9u" aspect="1.7777777777777777"></wistia-player>
                         <div class="video-status">📦 Installation Guide</div>
                     </div>
-
-                    <div class="tutorial-navigation">
-                        <button class="nav-button prev" disabled>
-                            ← Previous
-                        </button>
-                        <div class="step-indicator">
-                            Step 1 of 5
-                        </div>
-                        <button class="nav-button next" onclick="goToStep('recording')">
-                            Next: Record →
-                        </button>
-                    </div>
                 </div>
 
                 <div class="tutorial-item" id="recording">
@@ -1548,18 +1439,6 @@
                     <div class="video-embed-container-wide">
                         <wistia-player media-id="22ld6mgdj6" aspect="1.7777777777777777"></wistia-player>
                         <div class="video-status">🎬 Recording Tutorial</div>
-                    </div>
-
-                    <div class="tutorial-navigation">
-                        <button class="nav-button prev" onclick="goToStep('installation')">
-                            ← Setup
-                        </button>
-                        <div class="step-indicator">
-                            Step 2 of 5
-                        </div>
-                        <button class="nav-button next" onclick="goToStep('upload')">
-                            Next: Upload →
-                        </button>
                     </div>
                 </div>
 
@@ -1585,18 +1464,6 @@ huggingface-cli upload luckyrobots/so100_Dataset_250_V0.1 . --repo-type=dataset
 python lerobot\examples\0_setup_dataset_tag.py
 </code></pre>
                         </div>
-                    </div>
-
-                    <div class="tutorial-navigation">
-                        <button class="nav-button prev" onclick="goToStep('recording')">
-                            ← Record
-                        </button>
-                        <div class="step-indicator">
-                            Step 3 of 5
-                        </div>
-                        <button class="nav-button next" onclick="goToStep('training')">
-                            Next: Train →
-                        </button>
                     </div>
                 </div>
 
@@ -1625,18 +1492,6 @@ python lerobot/scripts/train.py \
 <span class="comment"># 2>&1 | tee: Save training logs to training_log.txt</span>
 </code></pre>
                         </div>
-                    </div>
-
-                    <div class="tutorial-navigation">
-                        <button class="nav-button prev" onclick="goToStep('upload')">
-                            ← Upload
-                        </button>
-                        <div class="step-indicator">
-                            Step 4 of 5
-                        </div>
-                        <button class="nav-button next" onclick="goToStep('inference')">
-                            Next: Inference →
-                        </button>
                     </div>
                 </div>
 
@@ -1672,18 +1527,6 @@ python lerobot/scripts/visualize_performance.py \
     --log-path <span class="highlight">./outputs/eval</span>
 </code></pre>
                         </div>
-                    </div>
-
-                    <div class="tutorial-navigation">
-                        <button class="nav-button prev" onclick="goToStep('training')">
-                            ← Train
-                        </button>
-                        <div class="step-indicator">
-                            Step 5 of 5
-                        </div>
-                        <button class="nav-button next completion-btn" onclick="completeTutorial()">
-                            Complete Tutorial ✓
-                        </button>
                     </div>
                 </div>
             </div>
@@ -1885,10 +1728,8 @@ python lerobot/scripts/visualize_performance.py \
             observer.observe(card);
         });
 
-        // Simple tutorial navigation - no animations or auto-tracking
-        let currentStep = 0;
+        // Simple tutorial navigation
         const tutorialSteps = ['installation', 'recording', 'upload', 'training', 'inference'];
-        let completedSteps = new Set();
 
         // Enhanced smooth scrolling with offset
         function smoothScrollToElement(element, offset = 100) {
@@ -1899,58 +1740,6 @@ python lerobot/scripts/visualize_performance.py \
             });
         }
 
-        // Navigate to specific tutorial step
-        function goToStep(stepId) {
-            const stepIndex = tutorialSteps.indexOf(stepId);
-            if (stepIndex !== -1) {
-                currentStep = stepIndex;
-                updateTutorialState();
-                
-                const targetElement = document.getElementById(stepId);
-                if (targetElement) {
-                    smoothScrollToElement(targetElement);
-                }
-            }
-        }
-
-        // Mark step as completed
-        function markStepCompleted(stepId) {
-            completedSteps.add(stepId);
-            const stepElement = document.getElementById(stepId);
-            const navStep = document.querySelector(`[href="#${stepId}"]`);
-            
-            if (stepElement) {
-                stepElement.classList.add('completed');
-            }
-            if (navStep) {
-                navStep.classList.add('completed');
-            }
-        }
-
-        // Update tutorial navigation state
-        function updateTutorialState() {
-            // Update active step in navigation
-            document.querySelectorAll('.tutorial-step').forEach((step, index) => {
-                step.classList.remove('active');
-                if (index === currentStep) {
-                    step.classList.add('active');
-                }
-            });
-        }
-
-        // Complete tutorial - minimal celebration
-        function completeTutorial() {
-            tutorialSteps.forEach(step => markStepCompleted(step));
-            
-            // Show completion with subtle animation
-            const completionBtn = document.querySelector('.completion-btn');
-            if (completionBtn) {
-                completionBtn.innerHTML = '✓ Tutorial Completed';
-                completionBtn.style.background = '#10b981';
-                completionBtn.style.borderColor = '#10b981';
-            }
-        }
-
         // Simple tutorial step interaction
         document.querySelectorAll('.tutorial-step').forEach((step, index) => {
             // Add click effect
@@ -1958,7 +1747,10 @@ python lerobot/scripts/visualize_performance.py \
                 e.preventDefault();
                 
                 const stepId = tutorialSteps[index];
-                goToStep(stepId);
+                const targetElement = document.getElementById(stepId);
+                if (targetElement) {
+                    smoothScrollToElement(targetElement);
+                }
             });
 
             // Clean step numbers
