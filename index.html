@@ -1433,9 +1433,6 @@
                         <a href="https://github.com/luckyrobots/luckyrobots/releases/tag/v1.0.0" class="tutorial-action-btn github-btn" target="_blank">
                             GitHub Releases
                         </a>
-                        <a href="https://drive.google.com/file/d/1ziQFBWF8FGNIaqtoZEJr930I59qa0YOw/view?usp=drive_link" class="tutorial-action-btn download-btn" target="_blank">
-                            Download V0.1
-                        </a>
                     </div>
                     
                     <div class="video-embed-container-wide">
@@ -1515,27 +1512,15 @@ python lerobot/scripts/train.py \
                             <div class="video-status">⚡ Inference Demo</div>
                         </div>
                         <div class="tutorial-code-block">
-<pre><code><span class="comment"># Run inference with trained policy</span>
-python lerobot/scripts/control_robot.py record \
-    --robot-path <span class="highlight">lerobot.common.robot.manifest</span> \
-    --robot-overrides <span class="highlight">robot_name=so100</span> \
-    --policy-path <span class="highlight">./outputs/train/diffusion_so100</span>
-
-<span class="comment"># Test specific task</span>
+<pre><code><span class="comment"># Run evaluation with trained policy</span>
 python lerobot/scripts/eval.py \
-    --policy-path <span class="highlight">./outputs/train/diffusion_so100</span> \
-    --task <span class="highlight">"Locate My Keyboard"</span> \
-    --num-episodes <span class="highlight">5</span>
-
-<span class="comment"># Real-time inference mode</span>
-python lerobot/scripts/control_robot.py infer \
-    --robot-overrides <span class="highlight">robot_name=so100</span> \
-    --policy-overrides <span class="highlight">policy_name=diffusion</span> \
-    --pretrained-policy-path <span class="highlight">./outputs/train/diffusion_so100</span>
-
-<span class="comment"># Monitor performance</span>
-python lerobot/scripts/visualize_performance.py \
-    --log-path <span class="highlight">./outputs/eval</span>
+    --policy.path=<span class="highlight">outputs/train/diffusion/checkpoints/020000/pretrained_model</span> \
+    --env.type=<span class="highlight">luckyworld</span> \
+    --eval.use_async_envs=<span class="highlight">false</span> \
+    --eval.n_episodes=<span class="highlight">5</span> \
+    --eval.batch_size=<span class="highlight">1</span> \
+    --policy.use_amp=<span class="highlight">false</span> \
+    --policy.device=<span class="highlight">cuda</span>
 </code></pre>
                         </div>
                     </div>
