@@ -12,6 +12,7 @@
     <script src="https://fast.wistia.com/embed/22ld6mgdj6.js" async type="module"></script>
     <script src="https://fast.wistia.com/embed/ahcudmvcsm.js" async type="module"></script>
     <script src="https://fast.wistia.com/embed/5buxoepkyw.js" async type="module"></script>
+    <script src="https://fast.wistia.com/embed/5z8odnfe41.js" async type="module"></script>
     
     <!-- Wistia Player Styles -->
     <style>
@@ -41,6 +42,12 @@
         }
         wistia-player[media-id='5buxoepkyw']:not(:defined) { 
             background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/5buxoepkyw/swatch'); 
+            display: block; 
+            filter: blur(5px); 
+            padding-top:56.25%; 
+        }
+        wistia-player[media-id='5z8odnfe41']:not(:defined) { 
+            background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/5z8odnfe41/swatch'); 
             display: block; 
             filter: blur(5px); 
             padding-top:56.25%; 
@@ -1322,7 +1329,7 @@
             <div class="header-buttons">
                 <a href="https://github.com/luckyrobots/luckyrobots" class="header-btn github-btn" target="_blank">GitHub</a>
                 <a href="https://discord.com/invite/5CH3wx3tAs" class="header-btn discord-btn" target="_blank">Discord</a>
-                <a href="https://drive.google.com/file/d/1ziQFBWF8FGNIaqtoZEJr930I59qa0YOw/view?usp=drive_link" class="header-btn download-btn" target="_blank">Download V0.1</a>
+                <a href="https://github.com/luckyrobots/luckyrobots/releases/tag/v1.0.0" class="header-btn download-btn" target="_blank">Download V0.1</a>
                 <a href="https://luckyrobots.com/" class="sign-in-btn">Visit LuckyRobots</a>
             </div>
         </nav>
@@ -1504,7 +1511,7 @@ python lerobot/scripts/train.py \
                     <h4>Inference with Trained Policy</h4>
                     <div class="tutorial-content-grid">
                         <div class="video-embed-container">
-                            <wistia-player media-id="5buxoepkyw" aspect="1.7777777777777777"></wistia-player>
+                            <wistia-player media-id="5z8odnfe41" aspect="1.7777777777777777"></wistia-player>
                             <div class="video-status">⚡ Inference Demo</div>
                         </div>
                         <div class="tutorial-code-block">
