@@ -7,6 +7,7 @@
     
     <!-- Wistia Player Scripts -->
     <script src="https://fast.wistia.com/player.js" async></script>
+    <script src="https://fast.wistia.com/embed/mxcu7qy51f.js" async type="module"></script>
     <script src="https://fast.wistia.com/embed/7u3xq30g9u.js" async type="module"></script>
     <script src="https://fast.wistia.com/embed/22ld6mgdj6.js" async type="module"></script>
     <script src="https://fast.wistia.com/embed/ahcudmvcsm.js" async type="module"></script>
@@ -14,6 +15,12 @@
     
     <!-- Wistia Player Styles -->
     <style>
+        wistia-player[media-id='mxcu7qy51f']:not(:defined) { 
+            background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/mxcu7qy51f/swatch'); 
+            display: block; 
+            filter: blur(5px); 
+            padding-top:56.25%; 
+        }
         wistia-player[media-id='7u3xq30g9u']:not(:defined) { 
             background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/7u3xq30g9u/swatch'); 
             display: block; 
@@ -1324,7 +1331,7 @@
     <nav class="page-nav">
         <div class="page-nav-header">In this release</div>
         <a href="#hero" class="page-nav-item active">Introducing LuckyWorld</a>
-        <a href="#robots" class="page-nav-item">Featured robot models</a>
+        <a href="#robots" class="page-nav-item">Featured robots</a>
         <a href="#tutorial" class="page-nav-item">Tutorial overview</a>
         <a href="#installation" class="page-nav-item">Installation & setup</a>
         <a href="#recording" class="page-nav-item">Recording episodes</a>
@@ -1340,10 +1347,7 @@
 
             <div class="video-section">
                 <div class="video-container">
-                    <video controls poster="" preload="metadata">
-                        <source src="https://raw.githubusercontent.com/ZoreAnuj/LuckyWorldRelease.github.io/main/assests/431520296-0ab2953d-b188-4af7-a225-71decdd2378c.mp4" type="video/mp4">
-                        <div class="video-placeholder">Demo Video</div>
-                    </video>
+                    <wistia-player media-id="mxcu7qy51f" aspect="1.7777777777777777"></wistia-player>
                 </div>
             </div>
 
@@ -1357,7 +1361,7 @@
     <section id="robots" class="robots-section">
         <div class="container">
             <div class="section-header">
-                <h2>Featured Robot Models in Our Release</h2>
+                <h2>Featured Robots in Our Release</h2>
             </div>
             
             <div class="robot-card-full" id="so100">
@@ -1384,7 +1388,7 @@
                     <div class="experimental-badge">Experimental</div>
                     
                     <div class="robot-gif-container">
-                        <img src="https://raw.githubusercontent.com/ZoreAnuj/LuckyWorldRelease.github.io/main/assests/dji300.gif" alt="DJI Matrice 300 RTK" />
+                        <img src="https://drive.google.com/uc?export=view&id=1-kFnRgJNbRIO4q9AG_vLQqWyybAga4vn" alt="DJI Matrice 300 RTK" />
                     </div>
                     <h3>DJI Matrice 300 RTK</h3>
                     <p>Commercial drone platform for precision mapping and industrial applications.</p>
@@ -1544,7 +1548,7 @@ python lerobot/scripts/visualize_performance.py \
                 <div class="footer-section">
                     <h4>Resources</h4>
                     <a href="#tutorial">Tutorials</a>
-                    <a href="#robots">Robot Models</a>
+                    <a href="#robots">Robots</a>
                 </div>
                 <div class="footer-section">
                     <h4>Community</h4>
